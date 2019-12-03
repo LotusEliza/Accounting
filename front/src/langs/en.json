@@ -1,0 +1,82 @@
+{
+    "welcomeMsg": "hello world",
+    "confirm": "Are you sure you want to delete: ",
+    "titles": {
+        "products": "Products",
+        "suppliers": "Suppliers",
+        "categories": "Categories"
+    },
+    "lables": {
+        "comment": "Comment"
+    },
+    "header":{
+        "nav":{
+            "suppliers": "Suppliers",
+            "products": "Products",
+            "categories": "Categories",
+            "add": "Add",
+            "cashBox": "Cash Box"
+        }
+    },
+    "categories":{
+        "table":{
+            "categoryName": "Сategory Name",
+            "сategoryDescription": "Сategory Description"
+        },
+        "updateMsg": "Update categories",
+        "toast": {
+            "update": "The category is updated",
+            "add": "The category is added",
+            "remove": "The category is removed"
+        }
+    },
+    "products":{
+        "table":{
+            "vendorCode": "Vendor Code",
+            "productName": "Product Name",
+            "companyName": "Company Name",
+            "categoryName": "Category Name",
+            "buyPrice": "Buy Price",
+            "sellPrice": "Sell Price",
+            "amount": "Amount",
+            "dateCreate": "Date"
+        },
+        "decommissionedMsg":" Write off the product",
+        "updateMsg": "Update product",
+        "addMsg": "Add product",
+        "toast":{
+            "update": "The product is updated",
+            "remove": "The product is removed",
+            "add": "The product added",
+            "decommissionedTooMuch": "More then exist in warehouse!",
+            "decommissioned": "Decommissioned"
+        }
+    },
+    "suppliers":{
+        "table":{
+            "companyName": "Company Name",
+            "contactName": "Contact Name",
+            "contactTitle": "Contact Title",
+            "address": "Address",
+            "city": "City",
+            "phone": "Phone",
+            "email": "Email"
+        },
+        "updateMsg": "Update supplier",
+        "addMsg": "Add supplier",
+        "toast":{
+            "update": "The supplier is updated",
+            "remove": "The supplier is removed",
+            "add": "The supplier is added"
+        }
+    },
+    "buttons":{
+        "remove": "Remove",
+        "update": "Update",
+        "back": "Back",
+        "submit": "Submit",
+        "add": "Add",
+        "cancel": "Cancel",
+        "writeoff": "Write-Off"
+    }
+}

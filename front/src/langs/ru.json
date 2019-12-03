@@ -1,0 +1,82 @@
+{
+    "confirm":"Вы уверенны что хотите удалить: ",
+    "header":{
+        "nav":{
+            "suppliers": "Поставщики",
+            "products": "Склад",
+            "categories": "Категории",
+            "add": "Добавить",
+            "cashBox": "Касса"
+        }
+    },
+    "titles": {
+        "products": "Склад",
+            "suppliers": "Поставщики",
+            "categories": "Категории"
+    },
+    "lables": {
+        "comment": "Комментарий"
+    },
+    "categories":{
+        "table":{
+            "categoryName": "Название Категории",
+                "сategoryDescription": "Описание"
+        },
+        "updateMsg": "Изменить категорию",
+            "toast": {
+            "update": "Категория обновлена",
+                "add": "Категория добавлена",
+                "remove": "Категория удалена"
+        }
+    },
+    "products":{
+        "table":{
+            "vendorCode": "Код",
+                "productName": "Товар",
+                "companyName": "Поставщик",
+                "categoryName": "Категория",
+                "buyPrice": "Закупка",
+                "sellPrice": "Продажа",
+                "amount": "Колличество",
+                "dateCreate": "Дата"
+        },
+
+        "decommissionedMsg": "Списать товар ",
+            "updateMsg": "Изменить товар",
+            "addMsg": "Добавить товар",
+            "toast":{
+            "update": "Товар обновлен",
+                "remove": "Товар удален",
+                "add": "Товар добавлен",
+                "decommissionedTooMuch": "На складе меньше товара чем Вы пытаетесь списать!",
+                "decommissioned": "Товар списан"
+        }
+    },
+    "suppliers":{
+        "table":{
+            "companyName": "Компания",
+                "contactName": "Имя Контакта",
+                "contactTitle": "Описание Контакта",
+                "address": "Адресс",
+                "city": "Город",
+                "phone": "Телефон",
+                "email": "Почта"
+        },
+        "updateMsg": "Изменить поставщика",
+            "addMsg": "Добавить поставщика",
+            "toast":{
+            "update": "Поставщик обновлен",
+                "remove": "Поставщик удален",
+                "add": "Поставщик добавлен"
+        }
+    },
+    "buttons":{
+        "remove": "Удалить",
+            "update": "Изменить",
+            "back": "Назад",
+            "submit": "Утвердить",
+            "add": "Добавить",
+            "cancel": "Отменить",
+            "writeoff": "Списать"
+    }
+}

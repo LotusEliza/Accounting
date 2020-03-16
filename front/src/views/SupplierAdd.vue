@@ -2,103 +2,105 @@
     <div class="p-3">
         <div class="tile is-ancestor">
             <div class="tile is-2 is-vertical is-parent">
-                {{form}}
             </div>
             <div class="tile is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title"> {{$t("suppliers.addMsg")}}</p>
-                    <section>
-                        <div class="columns is-mobile is-multiline">
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.companyName">
-                                    <b-input
-                                             v-model="form.CompanyName"
-                                             placeholder="Enter company name"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
+                    <ValidationObserver ref="observer">
+                        <section slot-scope="{ validate }">
+
+                            <div class="columns is-mobile is-multiline">
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.companyName">
+                                        <b-input
+                                                 v-model="form.CompanyName"
+                                                 rounded
+                                                 size="is-small"
+                                        ></b-input>
+                                    </b-field>
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <BInputWithValidation rules="required"
+                                                          type="text"
+                                                          :label="labels.contactName"
+                                                          v-model="form.ContactName"
+                                    />
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.city">
+                                        <b-autocomplete
+                                                rounded
+                                                size="is-small"
+                                                v-model="form.City"
+                                                :data="filteredDataArray"
+                                                placeholder="Николаев"
+                                                @select="option => selected = option"
+                                        >
+                                            <template slot="empty">No results found</template>
+                                        </b-autocomplete>
+                                    </b-field>
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.phone">
+                                        <vue-tel-input v-model="phone" v-bind="bindProps" @input="addPhone()"></vue-tel-input>
+                                    </b-field>
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.email">
+                                        <b-input type="email"
+                                                 v-model="form.Email"
+                                                 rounded
+                                                 size="is-small"
+                                        ></b-input>
+                                    </b-field>
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.address">
+                                        <b-input
+                                                type="textarea"
+                                                v-model="form.Address"
+                                                rounded
+                                                size="is-small"
+                                        ></b-input>
+                                    </b-field>
+                                </div>
+
+                                <div class="column is-narrow">
+                                    <b-field :label="labels.contactTitle">
+                                        <b-input
+                                                type="textarea"
+                                                v-model="form.ContactTitle"
+                                                rounded
+                                                size="is-small"
+                                        ></b-input>
+                                    </b-field>
+                                </div>
+
                             </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.contactName">
-                                    <b-input
-                                             v-model="form.ContactName"
-                                             placeholder="Enter contact name"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
+                            <div class="buttons pt-2" >
+                                <b-button  @click="validate().then(addSupplier)"
+                                           type="is-link is-primary"
+                                           class="is-small"
+                                >
+                                    {{$t("buttons.add")}}
+                                </b-button>
+                                <b-button tag="router-link"
+                                          to="/suppliers"
+                                          type="is-link is-light"
+                                          class="is-small"
+                                >
+                                    {{$t("buttons.back")}}
+                                </b-button>
                             </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.contactTitle">
-                                    <b-input
-                                             v-model="form.ContactTitle"
-                                             placeholder="Enter contact title"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.city">
-                                    <b-autocomplete
-                                            rounded
-                                            size="is-small"
-                                            v-model="form.City"
-                                            :data="filteredDataArray"
-                                            placeholder="Select City"
-                                            @select="option => selected = option">
-                                        <template slot="empty">No results found</template>
-                                    </b-autocomplete>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.email">
-                                    <b-input type="email"
-                                             v-model="form.Email"
-                                             placeholder="Enter contact name"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.phone">
-                                    <vue-tel-input v-model="phone" v-bind="bindProps" @input="addPhone()"></vue-tel-input>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.address">
-                                    <b-input
-                                            type="textarea"
-                                            v-model="form.Address"
-                                            placeholder="Enter contact name"
-                                            rounded
-                                            size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
-
-                        </div>
-                    </section>
-                    <section>
-                        <div class="buttons pt-2" >
-                            <b-button  @click="addSupplier()" type="is-success">{{$t("buttons.add")}}</b-button>
-                            <b-button tag="router-link"
-                                      to="/suppliers"
-                                      type="is-link is-light"
-                            >
-                                {{$t("buttons.back")}}
-                            </b-button>
-                        </div>
-                    </section>
+                        </section>
+                    </ValidationObserver>
                 </div>
             </div>
             <div class="tile is-2 is-vertical is-parent">
@@ -108,13 +110,17 @@
 </template>
 
 <script>
-    // import { mapGetters } from 'vuex';
     import { VueTelInput } from 'vue-tel-input'
+    import { data } from '../utils/variables.js'
+    import { ValidationObserver } from 'vee-validate';
+    import BInputWithValidation from '../components/inputs/BInputWithValidation';
 
     export default {
         name: 'suppliersAdd',
         components: {
             VueTelInput,
+            ValidationObserver,
+            BInputWithValidation,
         },
         data() {
             return {
@@ -128,38 +134,19 @@
                     enabledCountryCode: false,
                     enabledFlags: true,
                     preferredCountries: ["UA", "RU", "CN", "US"],
-                    // onlyCountries: ["RU", "US", "CH"],
                     ignoredCountries: [],
                     autocomplete: "off",
                     name: "telephone",
                     maxLen: 25,
                     wrapperClasses: "",
                     inputClasses: "",
-                    // dropdownOptions: {
-                    //     disabledDialCode: false
-                    // },
                     inputOptions: {
                         showDialCode: true
                     }
                 },
                 phone: null,
-                // products: [],
                 //autocomplite
-                data: [
-                    'Kyiv',
-                    'Kharkiv',
-                    'Odessa',
-                    'Dnipro',
-                    'Donetsk',
-                    'Lviv',
-                    'Mykolaiv',
-                    'Sevastopol',
-                    'Kherson',
-                    'Sumy',
-                    'Rivne',
-                    'Ivano-Frankivsk'
-                ],
-
+                data: data,
                 name: '',
                 selected: null,
                 labels:{
@@ -188,7 +175,7 @@
                     return option
                         .toString()
                         .toLowerCase()
-                        .indexOf(this.name.toLowerCase()) >= 0
+                        .indexOf(this.form.City.toLowerCase()) >= 0
                 })
             },
         },
@@ -197,8 +184,7 @@
                 this.form.Phone = this.phone;
             },
             addSupplier(){
-                console.log(this.form)
-                this.$store.dispatch('suppliers/addSupplier', this.form);
+                this.$store.dispatch('suppliers/addSupplier', this.form).then(() => this.$router.push('/suppliers'));
             }
         },
     }

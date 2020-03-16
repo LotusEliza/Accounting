@@ -3,19 +3,44 @@
     "header":{
         "nav":{
             "suppliers": "Поставщики",
-            "products": "Склад",
+            "products": "Продукты",
             "categories": "Категории",
             "add": "Добавить",
-            "cashBox": "Касса"
+            "cashBox": "Касса",
+            "warehouse": "Склад",
+            "report": "Отчет",
+            "month/year": "Месяц/Год",
+            "day": "День",
+            "utilityBills": "Коммунальные услуги"
         }
     },
     "titles": {
-        "products": "Склад",
-            "suppliers": "Поставщики",
-            "categories": "Категории"
+        "products": "Продукты",
+        "warehouse": "Склад",
+        "suppliers": "Поставщики",
+        "categories": "Категории",
+        "cashBox": "Касса"
     },
     "lables": {
         "comment": "Комментарий"
+    },
+    "report": {
+        "debit": "Дебит",
+        "debitTotal": "Дебит:",
+        "credit": "Кредит",
+        "creditTotal": "Кредит:",
+        "profit": "Прибыль",
+        "buttons":{
+            "debit/credit": "дебит/кредит",
+            "decommissioned": "списанное",
+            "chartMonth": "график за месяц",
+            "chartYear": "график за год",
+            "utilityBills": "коммунальные платежи"
+        },
+        "table":{
+            "date": "Дата",
+            "bill": "Счет"
+        }
     },
     "categories":{
         "table":{
@@ -27,6 +52,20 @@
             "update": "Категория обновлена",
                 "add": "Категория добавлена",
                 "remove": "Категория удалена"
+        }
+    },
+    "warehouse":{
+        "table":{
+            "dateCreate": "Дата",
+            "productName": "Продукт",
+            "companyName": "Компания",
+            "buyPrice": "Цена закупки",
+            "sellPrice": "Цена продажи",
+            "surcharge": "Наценка %",
+            "supAmount": "Колличество",
+            "amount": "Текущее колличество",
+            "unit": "Ед. изм.",
+            "comment": "Комментарий"
         }
     },
     "products":{
@@ -70,6 +109,36 @@
                 "add": "Поставщик добавлен"
         }
     },
+    "supply": {
+        "addMsg": "Осуществить поставку",
+        "updateMsg": "Обновить поставку",
+        "table": {
+            "surcharge": "Процент",
+            "unit": "Ед. изм."
+        },
+        "toast":{
+            "update": "Поставка обновлена",
+            "remove": "Поставка удалена",
+            "add": "Поставка добавлена",
+            "checkInput": "Заполните все поля!"
+        }
+    },
+    "cashBox": {
+        "transaction": "Транзакция",
+
+        "toast": {
+            "notEnough": "Больше чем есть в наличии!",
+            "add": "Продано!",
+            "noWeight" : "Пожалуйста, укажите вес товара!"
+        },
+        "labels": {
+            "price" : "Цена за ед.",
+            "price2" : "Цена",
+            "sum": "Общая сумма к оплате:",
+            "sum2": "Общая сумма:",
+            "total" : "Стоимость"
+        }
+    },
     "buttons":{
         "remove": "Удалить",
             "update": "Изменить",
@@ -77,6 +146,7 @@
             "submit": "Утвердить",
             "add": "Добавить",
             "cancel": "Отменить",
-            "writeoff": "Списать"
+            "writeoff": "Списать",
+            "buy": "Купить"
     }
 }

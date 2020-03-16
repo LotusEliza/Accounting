@@ -1,42 +1,35 @@
 <template>
     <div class="p-3">
-        <div class="tile is-ancestor">
+        <div class="tile is-ancestor plr-15">
             <div class="tile is-2 is-vertical is-parent">
             </div>
             <div class="tile is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title">{{$t("products.addMsg")}}</p>
-                    <section>
-                        <div class="columns is-mobile is-multiline">
+                    <ValidationObserver ref="observer">
+                        <section slot-scope="{ validate }">
+                            <div class="columns is-mobile is-multiline">
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.productName">
-                                    <b-input
-                                             v-model="form.ProductName"
-                                             placeholder="Enter name"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
+                                <div class="column">
+                                    <BInputWithValidation rules="required"
+                                                          type="text"
+                                                          :label="labels.productName"
+                                                          v-model="form.ProductName"
+                                    />
+                                </div>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.vendorCode">
-                                    <b-input
-                                            v-model="form.VendorCode"
-                                            placeholder="Enter name"
-                                            rounded
-                                            size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
+                                <div class="column">
+                                    <BInputWithValidation rules="required"
+                                                          type="text"
+                                                          :label="labels.vendorCode"
+                                                          v-model="form.VendorCode"
+                                    />
+                                </div>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.categoryName">
-                                    <b-select placeholder="Select a category"
-                                              v-model="form.CategoryID"
-                                              rounded
-                                              size="is-small"
+                                <div class="column">
+                                    <BSelectWithValidation rules="required"
+                                                           :label="labels.categoryName"
+                                                           v-model="form.CategoryID"
                                     >
                                         <option v-for="(option, key) in categories"
                                                 :key="key"
@@ -44,76 +37,28 @@
                                         >
                                             {{option.CategoryName}}
                                         </option>
-                                    </b-select>
-                                </b-field>
-                            </div>
+                                    </BSelectWithValidation>
+                                </div>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.companyName">
-                                    <b-select placeholder="Select a category"
-                                              v-model="form.SupplierID"
-                                              rounded
-                                              size="is-small"
-                                    >
-                                        <option v-for="(option, key) in suppliers"
-                                                :key="key"
-                                                :value="option.ID"
-                                        >
-                                            {{option.CompanyName}}
-                                        </option>
-                                    </b-select>
-                                </b-field>
                             </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.buyPrice">
-                                    <b-numberinput
-                                                   v-model="form.BuyPrice"
-                                                   placeholder="Enter sockets"
-                                                   rounded
-                                                   size="is-small"
-                                                   step="0.1"
-                                    ></b-numberinput>
-                                </b-field>
+                            <div class="buttons pt-2" >
+                                <b-button  @click="validate().then(addProduct)"
+                                           type="is-link is-primary"
+                                           class="is-small"
+                                >
+                                    {{$t("buttons.add")}}
+                                </b-button>
+                                <b-button tag="router-link"
+                                          to="/products"
+                                          type="is-link is-light"
+                                          class="is-small"
+                                >
+                                    {{$t("buttons.back")}}
+                                </b-button>
                             </div>
+                        </section>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.sellPrice">
-                                    <b-numberinput
-                                                   v-model="form.SellPrice"
-                                                   placeholder="Enter sockets"
-                                                   rounded
-                                                   size="is-small"
-                                                   step="0.1"
-                                    ></b-numberinput>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
-                                <b-field :label="labels.amount">
-                                    <b-numberinput
-                                            v-model="form.Amount"
-                                            placeholder="Enter sockets"
-                                            rounded
-                                            size="is-small"
-                                            step="1"
-                                    ></b-numberinput>
-                                </b-field>
-                            </div>
-
-                        </div>
-                    </section>
-                    <section>
-                        <div class="buttons pt-2" >
-                            <b-button  @click="addProduct()" type="is-success">{{$t("buttons.add")}}</b-button>
-                            <b-button tag="router-link"
-                                      to="/products"
-                                      type="is-link is-light"
-                            >
-                                {{$t("buttons.back")}}
-                            </b-button>
-                        </div>
-                    </section>
+                    </ValidationObserver>
                 </div>
             </div>
             <div class="tile is-2 is-vertical is-parent">
@@ -124,10 +69,16 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import { ValidationObserver } from 'vee-validate';
+    import BSelectWithValidation from '../components/inputs/BSelectWithValidation';
+    import BInputWithValidation from '../components/inputs/BInputWithValidation';
 
     export default {
         name: 'productAdd',
         components: {
+            ValidationObserver,
+            BSelectWithValidation,
+            BInputWithValidation,
         },
         data() {
             return {
@@ -166,8 +117,7 @@
         },
         methods: {
             addProduct(){
-                console.log(this.form);
-                this.$store.dispatch('products/addProduct', this.form);
+                this.$store.dispatch('products/addProduct', this.form).then(() => this.$router.push('/products'));
             },
 
         },

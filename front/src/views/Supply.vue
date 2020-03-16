@@ -1,6 +1,8 @@
 <template>
     <section class="p-3">
-        <confirm ref="conf" @clicked="removeSupplier"></confirm>
+        <confirm ref="conf" @clicked="removeSupply"></confirm>
+        <p class="title is-hidden-tablet">{{$t("titles.warehouse")}}</p>
+
         <div class="buttons pt-2">
             <b-button @click="confirmRemove()"
                       type="is-light"
@@ -10,10 +12,10 @@
                 {{$t("buttons.remove")}}
             </b-button>
             <b-button tag="router-link"
-                      :to="{ path: `/suppliers/update` }"
+                      :to="{ path: `/supply/update` }"
                       type="is-link is-primary"
                       class="is-small is-hidden-tablet"
-                      v-on:click.native="updateSuppl"
+                      v-on:click.native="updateSupply"
                       :event="visible ? 'click' : ''"
                       :disabled="!visible"
             >
@@ -21,7 +23,7 @@
             </b-button>
 
             <b-button tag="router-link"
-                      :to="{ path: `/suppliers/add` }"
+                      :to="{ path: `/supply/add` }"
                       type="is-link is-primary"
                       class="is-small is-hidden-tablet"
             >
@@ -30,7 +32,7 @@
         </div>
         <section class="bg-img">
             <b-table
-                    :data="isEmpty ? [] : suppliers"
+                    :data="isEmpty ? [] : items"
                     :columns="columns"
                     :checked-rows.sync="checkedRows"
                     checkable
@@ -51,10 +53,10 @@
                     {{$t("buttons.remove")}}
                 </b-button>
                 <b-button tag="router-link"
-                          :to="{ path: `/suppliers/update` }"
+                          :to="{ path: `/supply/update` }"
                           type="is-link is-primary"
                           class="is-small"
-                          v-on:click.native="updateSuppl"
+                          v-on:click.native="updateSupply"
                           :event="visible ? 'click' : ''"
                           :disabled="!visible"
                 >
@@ -62,7 +64,18 @@
                 </b-button>
 
                 <b-button tag="router-link"
-                          :to="{ path: `/suppliers/add` }"
+                          :to="{ path: `/supply/decommissioned` }"
+                          type="is-link is-primary"
+                          class="is-small"
+                          v-on:click.native="decommissioned"
+                          :event="visible ? 'click' : ''"
+                          :disabled="!visible"
+                >
+                    {{$t("buttons.writeoff")}}
+                </b-button>
+
+                <b-button tag="router-link"
+                          :to="{ path: `/supply/add` }"
                           type="is-link is-primary"
                           class="is-small"
                 >
@@ -79,13 +92,10 @@
     import Confirm from "../components/Confirm";
     import {ToastProgrammatic as Toast} from "buefy";
 
-    // import Modal from "../components/ModalMultipleRemove";
-
     export default {
         name: 'products',
         components: {
             'confirm': Confirm,
-            // 'modal': Modal,
         },
         data() {
             return {
@@ -110,52 +120,68 @@
                         centered: true,
                     },
                     {
+                        field: 'DateCreate',
+                        label: this.$t("warehouse.table.dateCreate"),
+                        searchable: true,
+                        centered: true,
+                    },
+                    {
                         field: 'CompanyName',
-                        label: this.$t("suppliers.table.companyName"),
+                        label: this.$t("warehouse.table.companyName"),
                         searchable: true,
                         centered: true,
                     },
                     {
-                        field: 'ContactName',
-                        label: this.$t("suppliers.table.contactName"),
+                        field: 'ProductName',
+                        label: this.$t("warehouse.table.productName"),
                         searchable: true,
-                        centered: true,
-                    },
-                    {
-                        field: 'ContactTitle',
-                        label: this.$t("suppliers.table.contactTitle"),
                         centered: true
                     },
                     {
-                        field: 'Address',
-                        label: this.$t("suppliers.table.address"),
+                        field: 'BuyPrice',
+                        label: this.$t("warehouse.table.buyPrice"),
                         centered: true
                     },
                     {
-                        field: 'City',
-                        label: this.$t("suppliers.table.city"),
+                        field: 'SellPrice',
+                        label: this.$t("warehouse.table.sellPrice"),
                         centered: true
                     },
                     {
-                        field: 'Phone',
-                        label: this.$t("suppliers.table.phone"),
+                        field: 'Surcharge',
+                        label: this.$t("warehouse.table.surcharge"),
                         centered: true
 
                     },
                     {
-                        field: 'Email',
-                        label: this.$t("suppliers.table.email"),
+                        field: 'SupAmount',
+                        label: this.$t("warehouse.table.supAmount"),
+                        centered: true
+                    },
+                    {
+                        field: 'Amount',
+                        label: this.$t("warehouse.table.amount"),
+                        centered: true
+                    },
+                    {
+                        field: 'UnitName',
+                        label: this.$t("warehouse.table.unit"),
+                        centered: true
+                    },
+                    {
+                        field: 'Comment',
+                        label: this.$t("warehouse.table.comment"),
                         centered: true
                     },
                 ]
             }
         },
+        mounted(){
+            this.$store.dispatch('supply/getSupply');
+        },
         computed: {
-            ...mapGetters("suppliers", [
-                'suppliers',
-            ]),
-            ...mapGetters("categories", [
-                'categories',
+            ...mapGetters("supply", [
+                'items',
             ]),
         },
         watch: {
@@ -167,15 +193,12 @@
                 }
             }
         },
-        mounted(){
-            this.$store.dispatch('suppliers/getSuppliers');
-            this.$store.dispatch('products/getProducts');
-        },
+
         methods:{
-            async removeSupplier(){
+            async removeSupply(){
                 let count = null;
                 for (let i = 0; i < this.checkedRows.length; i++) {
-                    const response = await this.$store.dispatch('suppliers/removeSupplier', this.checkedRows[i].ID);
+                    const response = await this.$store.dispatch('supply/removeSupply', this.checkedRows[i].ID);
                     if(response === 'OK'){
                         console.log(response);
                         count++;
@@ -183,23 +206,17 @@
                 }
                 if(this.checkedRows.length === count){
                     Toast.open({
-                        message: this.$t("suppliers.toast.remove"),
+                        message: this.$t("supply.toast.remove"),
                         type: 'is-danger'
                     });
                 }
                 this.visible = false;
-
-
-                // let id = 9;
-                // for (let i = 0; i < this.checkedRows.length; i++) {
-                //     this.$store.dispatch('suppliers/removeSupplier', this.checkedRows[i].ID);
-                // }
             },
             async confirmRemove(){
                 let names = [];
                 try {
                     for (let i = 0; i < this.checkedRows.length; i++) {
-                        names.push(this.checkedRows[i].CompanyName)
+                        names.push(this.checkedRows[i].CompanyName + " - " + this.checkedRows[i].ProductName)
                     }
                 } catch (error) {
                     console.log('error')
@@ -207,15 +224,18 @@
                     this.$refs.conf.confirm(names)
                 }
             },
-            updateSuppl(){
+            updateSupply(){
                 if(this.checkedRows.length > 0){
                     console.log('update');
-                    this.$store.dispatch('suppliers/setUpdateSuppliers', this.checkedRows);
+                    this.$store.dispatch('supply/setUpdateSupply', this.checkedRows);
                 }
             },
-            // afterEnter () {
-            //     console.log('after enter in transition object') // works
-            // },
+            decommissioned(){
+                console.log('click');
+                if(this.checkedRows.length > 0){
+                    this.$store.dispatch('supply/setDecommissioned', this.checkedRows);
+                }
+            },
         }
     }
 </script>

@@ -1,51 +1,47 @@
 <template>
     <div class="p-3">
-        <div class="tile is-ancestor">
+        <div class="tile is-ancestor plr-15">
             <div class="tile is-2 is-vertical is-parent">
             </div>
             <div class="tile is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title">{{$t("products.addMsg")}}</p>
-                    <section>
+                    <ValidationObserver ref="observer">
+                        <section slot-scope="{ validate }">
+                                <div class="columns is-mobile is-multiline">
 
-                        {{form}}
-                        <div class="columns is-mobile is-multiline">
-                            <div class="column is-narrow">
-                                <b-field :label="labels.categoryName">
-                                    <b-input
-                                            v-model="form.categoryName"
-                                            placeholder="Enter name"
-                                            rounded
-                                            size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
+                                    <div class="column">
+                                        <BInputWithValidation rules="required"
+                                                              :label="labels.categoryName"
+                                                              v-model="form.categoryName"
+                                        />
+                                    </div>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.сategoryDescription">
-                                    <b-input
-                                            v-model="form.сategoryDescription"
-                                            placeholder="Enter name"
-                                            rounded
-                                            size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
+                                    <div class="column">
+                                        <BInputWithValidation rules="required"
+                                                              :label="labels.сategoryDescription"
+                                                              v-model="form.сategoryDescription"
+                                        />
+                                    </div>
 
-
-                        </div>
-                    </section>
-                    <section>
-                        <div class="buttons pt-2" >
-                            <b-button  @click="addProduct()" type="is-success">{{$t("buttons.add")}}</b-button>
-                            <b-button tag="router-link"
-                                      to="/categories"
-                                      type="is-link is-light"
-                            >
-                                {{$t("buttons.back")}}
-                            </b-button>
-                        </div>
-                    </section>
+                                </div>
+                                <div class="buttons pt-2" >
+                                    <b-button  @click="validate().then(addCategory)"
+                                               type="is-link is-primary"
+                                               class="is-small"
+                                    >
+                                        {{$t("buttons.add")}}
+                                    </b-button>
+                                    <b-button tag="router-link"
+                                              to="/categories"
+                                              type="is-link is-light"
+                                              class="is-small"
+                                    >
+                                        {{$t("buttons.back")}}
+                                    </b-button>
+                                </div>
+                        </section>
+                    </ValidationObserver>
                 </div>
             </div>
             <div class="tile is-2 is-vertical is-parent">
@@ -55,11 +51,14 @@
 </template>
 
 <script>
-    // import { mapGetters } from 'vuex';
+    import { ValidationObserver } from 'vee-validate';
+    import BInputWithValidation from "../components/inputs/BInputWithValidation";
 
     export default {
         name: 'productAdd',
         components: {
+            ValidationObserver,
+            BInputWithValidation,
         },
         data() {
             return {
@@ -78,11 +77,9 @@
         computed: {
         },
         methods: {
-            addProduct(){
-                console.log(this.form);
-                this.$store.dispatch('categories/addCategory', this.form);
+            addCategory(){
+                this.$store.dispatch('categories/addCategory', this.form).then(() => this.$router.push('/categories'));
             },
-
         },
     }
 </script>

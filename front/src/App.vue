@@ -5,8 +5,9 @@
         <a href="#" @click="setLocale('ru')"><flag iso="ru"></flag></a>
         <app-search class="is-hidden-touch"></app-search>
       </app-header>
-      <transition name="fade" mode="out-in" v-on:after-enter="afterEnter" appear>
-        <router-view class="bg-img" ref="comp" :key="componentKey"></router-view>
+<!--      <Chart/>-->
+      <transition name="fade" mode="out-in" appear>
+        <router-view class="bg-img" ref="comp" :key="componentKey" v-on:update="updateKey"></router-view>
       </transition>
   </div>
 </template>
@@ -14,13 +15,14 @@
 <script>
 import Header from './components/Header.vue'
 import Search from './components/SearchPlayer.vue'
-
+// const path = './public/inflicted.mp3';
 
 export default {
   name: 'app',
   components: {
     'app-header': Header,
     'app-search': Search,
+      // Chart
   },
   data(){
     return{
@@ -28,24 +30,103 @@ export default {
       componentKey: 0,
     }
   },
+    created() {
+      ///////////////////////////////////////////////////////////////////
+        // this.interval = setInterval(() => this.getOrders(), 50000);
+    },
+    computed: {
+        count () {
+            return this.$store.state.orders.orders.length
+        }
+    },
+    watch: {
+        count (newCount, oldCount) {
+            if(newCount > oldCount){
+                this.playSound()
+                console.log("New Order!")
+            }
+        }
+    },
   methods:{
+      playSound() {
+          const path = '/inflicted.mp3';
+          const audio = new Audio(path);
+          let playPromise = audio.play();
+
+          if (playPromise !== undefined) {
+              playPromise.then(function(){
+                  console.log('Did you hear that?');
+              })
+                  .catch(error => {
+                      console.log(`playSound error: ${error}`);
+                  });
+          }
+      },
     setLocale(locale){
         import(`./langs/${locale}.json`).then((msgs) => {
             this.$i18n.setLocaleMessage(locale, msgs);
             this.$i18n.locale = locale;
-            this.forceRerender()
+            this.$validator.locale = locale;
+            this.forceRerender();
         })
     },
     forceRerender() {
       this.componentKey += 1;
-    }
-  }
+    },
+      updateKey(){
+          console.log('yes')
+          this.forceRerender()
+      },
+      // getOrders(){
+      //     console.log("function run!");
+      //     this.$store.dispatch('orders/getOrders');
+      // }
+  },
+
+
 }
 </script>
 
 <style>
 
   [v-cloak] { display: none; }
+  .pl-15{
+      padding-left: 15px !important;
+  }
+  .plr-20{
+      padding-top: 2% !important;
+      padding-left: 20% !important;
+      padding-right: 20% !important;
+  }
+
+  .plr-30{
+      padding-top: 2% !important;
+      padding-left: 30% !important;
+      padding-right: 30% !important;
+  }
+
+
+
+  .pt-30{
+      padding-top: 30px !important;
+  }
+
+  .white{
+      background-color: rgba(254, 251, 235, 0.5) !important;
+  }
+
+  .plr-15{
+      padding-top: 2% !important;
+      padding-left: 17% !important;
+      padding-right: 17% !important;
+  }
+
+  .plr-10{
+      padding-top: 2% !important;
+      padding-left: 7% !important;
+      padding-right: 7% !important;
+  }
+
 
   .p-3 {
     padding: 20px 50px 0px 50px !important;
@@ -55,6 +136,12 @@ export default {
   }
   .pt-2 {
     padding-top: 20px !important;
+  }
+  .p-10 {
+      padding: 10px !important;
+  }
+  .pl-2 {
+      padding-top: 10px !important;
   }
   .p-4 {
     padding: 10px 200px 0px 200px !important;
@@ -91,7 +178,7 @@ export default {
 
   }
   .tile.is-child.box {
-    background-color: rgba(248, 229, 190, 0.6) !important;
+    background-color: rgba(254, 251, 235, 0.5) !important;
   }
 
   body {
@@ -129,6 +216,16 @@ export default {
       padding-right: 25%  ;
       padding-left: 25%;
       padding-top: 20px;
+  }
+  .p-8{
+      padding-right: 20%  ;
+      padding-left: 20%;
+      padding-top: 20px;
+  }
+  .p-20{
+      padding-top: 2em;
+      padding-left: 2em;
+      padding-right: 2em;
   }
     /*.is-active{*/
     /*    background-color: red;*/

@@ -1,16 +1,15 @@
 <template>
     <div class="p-3">
-<!--        {{suppliers}}-->
-        <div class="tile is-ancestor" v-for="(item, index) in suppliers" :key="index">
+        <div class="tile is-ancestor plr-10" v-for="(item, index) in suppliers" :key="index">
+
             <div class="tile is-2 is-vertical is-parent">
             </div>
+
             <div class="tile is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title"> {{$t("suppliers.updateMsg")}} #{{ item.ID }}</p>
                     <section>
-
                         <div class="columns is-mobile is-multiline">
-<!--                            companiesNames-->
 
                             <div class="column is-narrow">
                                 <b-field :label="labels.companyName">
@@ -34,16 +33,16 @@
                                 </b-field>
                             </div>
 
-                            <div class="column is-narrow">
-                                <b-field :label="labels.contactName">
-                                    <b-input :value="item.ContactTitle"
-                                             @input="updateContactTitle($event, item.ID)"
-                                             placeholder="Enter contact name"
-                                             rounded
-                                             size="is-small"
-                                    ></b-input>
-                                </b-field>
-                            </div>
+<!--                            <div class="column is-narrow">-->
+<!--                                <b-field :label="labels.contactTitle">-->
+<!--                                    <b-input :value="item.ContactTitle"-->
+<!--                                             @input="updateContactTitle($event, item.ID)"-->
+<!--                                             placeholder="Enter contact name"-->
+<!--                                             rounded-->
+<!--                                             size="is-small"-->
+<!--                                    ></b-input>-->
+<!--                                </b-field>-->
+<!--                            </div>-->
 
                             <div class="column is-narrow">
                                 <b-field :label="labels.city">
@@ -73,21 +72,8 @@
                             </div>
 
                             <div class="column is-narrow">
-                                <b-field label="Phone">
-                                    <vue-tel-input v-model="phone"></vue-tel-input>
-                                </b-field>
-                            </div>
-
-                            <div class="column is-narrow">
                                 <b-field :label="labels.phone">
-                                    <b-input
-                                            type="number"
-                                            :value="item.Phone"
-                                            @input="updatePhone($event, item.ID)"
-                                            placeholder="Enter contact name"
-                                            rounded
-                                            size="is-small"
-                                    ></b-input>
+                                    <vue-tel-input :value="item.Phone"  @input="updatePhone($event, item.ID)"></vue-tel-input>
                                 </b-field>
                             </div>
 
@@ -104,14 +90,33 @@
                                 </b-field>
                             </div>
 
+                            <div class="column is-narrow">
+                                <b-field :label="labels.contactTitle">
+                                    <b-input
+                                            type="textarea"
+                                            :value="item.ContactTitle"
+                                             @input="updateContactTitle($event, item.ID)"
+                                             placeholder="Enter contact name"
+                                             rounded
+                                             size="is-small"
+                                    ></b-input>
+                                </b-field>
+                            </div>
+
                         </div>
                     </section>
                     <section>
                         <div class="buttons pt-2" v-if="index === suppliers.length - 1">
-                            <b-button  @click="updateSuppliers()" type="is-success">{{$t("buttons.submit")}}</b-button>
+                            <b-button  @click="updateSuppliers()"
+                                       type="is-link is-primary"
+                                       class="is-small"
+                            >
+                                {{$t("buttons.submit")}}
+                            </b-button>
                             <b-button tag="router-link"
-                                      to="/products"
+                                      to="/suppliers"
                                       type="is-link is-light"
+                                      class="is-small"
                             >
                                 {{$t("buttons.back")}}
                             </b-button>
@@ -119,8 +124,10 @@
                     </section>
                 </div>
             </div>
+
             <div class="tile is-2 is-vertical is-parent">
             </div>
+
         </div>
     </div>
 </template>
@@ -128,7 +135,7 @@
 <script>
     import { mapGetters } from 'vuex';
     import { VueTelInput } from 'vue-tel-input'
-    // import {ToastProgrammatic as Toast} from "buefy";
+    import { data } from '../utils/variables.js'
 
     export default {
         name: 'suppliersUpdate',
@@ -137,21 +144,7 @@
         },
         data() {
             return {
-                data: [
-                    'Kyiv',
-                    'Kharkiv',
-                    'Odessa',
-                    'Dnipro',
-                    'Donetsk',
-                    'Lviv',
-                    'Mykolaiv',
-                    'Sevastopol',
-                    'Kherson',
-                    'Sumy',
-                    'Rivne',
-                    'Ivano-Frankivsk'
-                ],
-
+                data: data,
                 name: '',
                 selected: null,
                 phone: '12345',
@@ -167,8 +160,6 @@
             }
         },
         mounted(){
-            // this.$store.dispatch('categories/getCategories');
-            // this.$store.dispatch('suppliers/getSuppliers');
         },
         computed: {
             filteredDataArray() {
@@ -186,7 +177,8 @@
                 let answer = this.$store.getters['suppliers/suppliersUpdate'].length;
                 if(!answer){
                     console.log(JSON.parse(localStorage.getItem('suppliers')));
-                    this.$store.commit('suppliers/SET_SUPPLIERS_UPDATE', JSON.parse(localStorage.getItem('suppliers')))
+                    this.$store.commit('suppliers/SET_SUPPLIERS_UPDATE',
+                        JSON.parse(localStorage.getItem('suppliers')));
                     return this.$store.getters['suppliers/suppliersUpdate'];
                 }else {
                     return this.$store.getters['suppliers/suppliersUpdate'];
@@ -194,21 +186,15 @@
             }
         },
         methods: {
-            updateSuppliers(){
-                this.$store.dispatch('suppliers/updateSupplier')
-                // let count = null;
-                // for (let i = 0; i < this.$store.getters['suppliers/suppliersUpdate'].length; i++) {
-                //     const response = await this.$store.dispatch('suppliers/updateSupplier');
-                //     if(response === 'OK'){
-                //         count++;
-                //     }
-                // }
-                // if(this.$store.getters['suppliers/suppliersUpdate'].length === count){
-                //     Toast.open({
-                //         message: this.$t("suppliers.toast.update"),
-                //         type: 'is-success'
-                //     });
-                // }
+            async updateSuppliers(){
+                try {
+                    await    this.$store.dispatch('suppliers/updateSupplier')
+                } catch (error) {
+                    console.log('error')
+                } finally {
+                    await this.$router.push('/suppliers');
+                }
+                // this.$store.dispatch('suppliers/updateSupplier')
             },
             updateCity(event, id){
                 this.name = event;
@@ -216,32 +202,26 @@
                 this.$store.commit('suppliers/UPDATE_CITY', item);
             },
             updateCompanyName(event, id){
-                console.log('update name comp');
                 let item = { 'ID': id, 'CompanyName': event };
                 this.$store.commit('suppliers/UPDATE_COMPANY_NAME', item);
             },
             updateContactName(event, id){
-                console.log('update name contact'+event+id);
                 let item = {'ID': id, 'ContactName': event};
                 this.$store.commit('suppliers/UPDATE_CONTACT_NAME', item)
             },
             updateContactTitle(event, id){
-                console.log('update cont title'+event+id);
                 let item = {'ID': id, 'ContactTitle': event};
                 this.$store.commit('suppliers/UPDATE_CONTACT_TITLE', item)
             },
             updateEmail(event, id){
-                console.log('update cont title'+event+id);
                 let item = {'ID': id, 'Email': event};
                 this.$store.commit('suppliers/UPDATE_EMAIL', item)
             },
             updatePhone(event, id){
-                console.log('update cont title'+event+id);
                 let item = {'ID': id, 'Phone': event};
                 this.$store.commit('suppliers/UPDATE_PHONE', item)
             },
             updateAddress(event, id){
-                console.log('update cont title'+event+id);
                 let item = {'ID': id, 'Address': event};
                 this.$store.commit('suppliers/UPDATE_ADDRESS', item)
             },

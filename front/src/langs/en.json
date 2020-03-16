@@ -3,8 +3,10 @@
     "confirm": "Are you sure you want to delete: ",
     "titles": {
         "products": "Products",
+        "warehouse": "Warehouse",
         "suppliers": "Suppliers",
-        "categories": "Categories"
+        "categories": "Categories",
+        "cashBox": "Cashbox"
     },
     "lables": {
         "comment": "Comment"
@@ -13,9 +15,14 @@
         "nav":{
             "suppliers": "Suppliers",
             "products": "Products",
+            "warehouse": "Warehouse",
             "categories": "Categories",
             "add": "Add",
-            "cashBox": "Cash Box"
+            "cashBox": "Cash Box",
+            "report": "Report",
+            "month/year": "Month/Year",
+            "day": "Day",
+            "utilityBills": "Utility Bills"
         }
     },
     "categories":{
@@ -52,6 +59,35 @@
             "decommissioned": "Decommissioned"
         }
     },
+    "cashBox": {
+        "transaction": "Transaction",
+        "toast":{
+            "notEnough": "more then we have!!!",
+            "add": "Sold",
+            "noWeight" : "Please specify the weight"
+        },
+        "labels": {
+            "price" : "Price for item",
+            "sum": "Total: ",
+            "sum2": "Cумма:",
+            "total" : "Total",
+            "price2" : "Цена"
+        }
+    },
+    "warehouse":{
+        "table":{
+            "dateCreate": "Date",
+            "productName": "Product",
+            "companyName": "Company",
+            "buyPrice": "Buy Price",
+            "sellPrice": "Sell Price",
+            "surcharge": "Surcharge",
+            "supAmount": "Supplied Amount",
+            "amount": "Current amount",
+            "unit": "Unit",
+            "comment": "Comment"
+        }
+    },
     "suppliers":{
         "table":{
             "companyName": "Company Name",
@@ -70,6 +106,38 @@
             "add": "The supplier is added"
         }
     },
+    "supply": {
+        "addMsg": "Add supply",
+        "updateMsg": "Update supply",
+        "table": {
+            "surcharge": "Percent",
+            "unit": "Unit"
+        },
+        "toast":{
+            "update": "The supply is updated",
+            "remove": "The supply is removed",
+            "add": "The supply is added",
+            "checkInput": "Please fill in all fields!"
+        }
+    },
+    "report": {
+        "debit": "Debit",
+        "debitTotal": "Debit:",
+        "credit": "Credit",
+        "creditTotal": "Credit:",
+        "profit": "Profit",
+        "buttons":{
+            "debit/credit": "debit/credit",
+            "decommissioned": "decommissioned",
+            "chartMonth": "chart month",
+            "utilityBills": "Utility Bills",
+            "chartYear": "chart year"
+        },
+        "table":{
+            "date": "Date",
+            "bill": "Bill"
+        }
+    },
     "buttons":{
         "remove": "Remove",
         "update": "Update",
@@ -77,6 +145,7 @@
         "submit": "Submit",
         "add": "Add",
         "cancel": "Cancel",
-        "writeoff": "Write-Off"
+        "writeoff": "Write-Off",
+        "buy": "Купить"
     }
 }

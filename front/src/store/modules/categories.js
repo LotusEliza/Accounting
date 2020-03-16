@@ -1,8 +1,3 @@
-// import router from "../../routes";
-// import {ToastProgrammatic as Toast} from "buefy";
-
-// import {ToastProgrammatic as Toast} from "buefy";
-
 import {ToastProgrammatic as Toast} from "buefy";
 import {i18n} from "../../plugins/i18n";
 
@@ -21,7 +16,6 @@ export default {
             state.categories = categories;
         },
         REMOVE_CATEGORY(state, id){
-            console.log('remove');
             let c = state.categories.filter(c => c.ID != id);
             state.categories = c;
         },
@@ -50,7 +44,6 @@ export default {
     actions: {
         async getCategories({commit}){
             let response =  await window.axios.get('/categories');
-            console.log(response.data.Items);
             // debugger
             commit('SET_CATEGORIES', response.data.Items);
         },
@@ -59,10 +52,6 @@ export default {
                 ID: id,
             });
             if(response.status == 200 || response.status == 204){
-                // Toast.open({
-                //     message: i18n.t("products.toast.remove"),
-                //     type: 'is-danger'
-                // });
                 commit('REMOVE_CATEGORY', id);
                 return 'OK';
             }
@@ -70,8 +59,6 @@ export default {
         setUpdateCategories({commit}, categories){
             commit('SET_CATEGORIES_UPDATE', categories);
         },
-
-
         async updateCategory({state}){
             let count = null;
             for (let i = 0; i < state.categoriesUpdate.length; i++) {
@@ -82,8 +69,6 @@ export default {
                 });
                 if(response.status == 200 || response.status == 204){
                     count++;
-                    // console.log('updated vuex!');
-                    // return "OK"
                 }
             }
             if(state.categoriesUpdate.length === count){
@@ -100,10 +85,12 @@ export default {
             });
             if (response.status == 200 || response.status == 204) {
                 commit('ADD_CATEGORY', category);
+                // router.push('/categories');
                 Toast.open({
                     message: i18n.t("categories.toast.add"),
                     type: 'is-success'
                 });
+
             }
         }
 

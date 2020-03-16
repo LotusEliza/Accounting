@@ -12,13 +12,37 @@ import moment from 'moment'
 import VueTelInput from 'vue-tel-input'
 import {i18n} from './plugins/i18n'
 import FlagIcon from 'vue-flag-icon'
+import validationMessagesRu from 'vee-validate/dist/locale/ru';
+import validationMessagesEn from 'vee-validate/dist/locale/en';
+
+
+// import VueCharts from 'vue-chartjs'
+// import { Bar, Line } from 'vue-chartjs'
+// Vue.use(VueCharts);
+// Vue.use(Bar);
+// Vue.use(Line);
+
+import { MonthPicker } from 'vue-month-picker'
+import { MonthPickerInput } from 'vue-month-picker'
+// import moment from 'moment'
+
+Vue.use(MonthPicker)
+Vue.use(MonthPickerInput)
+
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
 Vue.use(Buefy);
+
 Vue.use(VeeValidate, {
   events: '',
-    errorBagName: 'vErrors',
+  errorBagName: 'vErrors',
+  i18nRootKey: 'validations', // customize the root path for validation messages.
+  i18n,
+  dictionary: {
+    ru: validationMessagesRu,
+    en: validationMessagesEn,
+  }
 });
 
 window.$ = JQuery;
@@ -39,7 +63,7 @@ const router = new VueRouter({
 
 Vue.filter('formatDate', function(value) {
   if (value) {
-    return moment(String(value)).format('YYYY-MM-DD');
+    return moment(String(value)).format('YYYY-MM-DD HH:mm');
   }
 });
 

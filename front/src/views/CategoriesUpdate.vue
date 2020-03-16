@@ -1,15 +1,14 @@
 <template>
     <div class="p-3">
-        <div class="tile is-ancestor" v-for="(item, index) in categories" :key="index">
+        <div class="tile is-ancestor plr-15" v-for="(item, index) in categories" :key="index">
             <div class="tile is-2 is-vertical is-parent">
             </div>
             <div class="tile is-vertical is-parent">
                 <div class="tile is-child box">
                     <p class="title">{{$t("categories.updateMsg")}} #{{ item.ID }}</p>
-                    <section>
 
                         <div class="columns is-mobile is-multiline">
-                            <div class="column is-narrow">
+                            <div class="column">
                                 <b-field :label="labels.categoryName">
                                     <b-input :value="item.CategoryName"
                                              @input="updateCategoryName($event, item.ID)"
@@ -19,7 +18,7 @@
                                 </b-field>
                             </div>
 
-                            <div class="column is-narrow">
+                            <div class="column">
                                 <b-field :label="labels.сategoryDescription">
                                     <b-input :value="item.CategoryDescription"
                                              @input="updateCategoryDescription($event, item.ID)"
@@ -31,18 +30,21 @@
                             </div>
 
                         </div>
-                    </section>
-                    <section>
                         <div class="buttons pt-2" v-if="index === categories.length - 1">
-                            <b-button  @click="updateCategory()" type="is-success">{{$t("buttons.submit")}}</b-button>
+                            <b-button  @click="updateCategory()"
+                                       type="is-link is-primary"
+                                       class="is-small"
+                            >
+                                {{$t("buttons.submit")}}
+                            </b-button>
                             <b-button tag="router-link"
                                       to="/categories"
                                       type="is-link is-light"
+                                      class="is-small"
                             >
                                 {{$t("buttons.back")}}
                             </b-button>
                         </div>
-                    </section>
                 </div>
             </div>
             <div class="tile is-2 is-vertical is-parent">
@@ -52,8 +54,6 @@
 </template>
 
 <script>
-    // import { mapGetters } from 'vuex';
-
     export default {
         name: 'productsUpdate',
         components: {
@@ -83,7 +83,7 @@
         },
         methods: {
             updateCategory(){
-                this.$store.dispatch('categories/updateCategory');
+                this.$store.dispatch('categories/updateCategory', this.form).then(() => this.$router.push('/categories'));
             },
             updateCategoryName(event, id){
                 let item = {'ID': id, 'CategoryName': event};

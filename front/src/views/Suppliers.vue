@@ -1,7 +1,7 @@
 <template>
     <section class="p-3">
         <confirm ref="conf" @clicked="removeSupplier"></confirm>
-        <p class="title is-hidden-tablet">{{$t("titles.suppliers")}}</p>
+        <p class="title">{{$t("titles.suppliers")}}</p>
         <div class="buttons pt-2 is-hidden-tablet">
             <b-button @click="confirmRemove()"
                       type="is-light"
@@ -30,19 +30,36 @@
             </b-button>
         </div>
         <section class="bg-img">
-            <b-table
-                    :data="isEmpty ? [] : suppliers"
-                    :columns="columns"
-                    :checked-rows.sync="checkedRows"
-                    checkable
-                    :checkbox-position="checkboxPosition"
-                    :striped="isStriped"
-                    :narrowed="isNarrowed"
-                    :hoverable="isHoverable"
-                    :loading="isLoading"
-                    :mobile-cards="hasMobileCards"
-            >
-            </b-table>
+            <template v-if="suppliers">
+                <b-table
+                        :data="isEmpty ? [] : suppliers"
+                        :columns="columns"
+                        :checked-rows.sync="checkedRows"
+                        checkable
+                        :checkbox-position="checkboxPosition"
+                        :striped="isStriped"
+                        :narrowed="isNarrowed"
+                        :hoverable="isHoverable"
+                        :loading="isLoading"
+                        :mobile-cards="hasMobileCards"
+                >
+                </b-table>
+            </template>
+
+            <template v-else>
+                <td slot="empty" colspan="2">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                    icon="emoticon-sad"
+                                    size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>Nothing here.</p>
+                    </div>
+                </td>
+            </template>
+
             <div class="buttons pt-2">
                 <b-button @click="confirmRemove()"
                           type="is-light"
@@ -200,7 +217,7 @@
                 let names = [];
                 try {
                     for (let i = 0; i < this.checkedRows.length; i++) {
-                        names.push(this.checkedRows[i].CompanyName)
+                        names.push(this.checkedRows[i].CompanyName + ' - ' + this.checkedRows[i].ContactName )
                     }
                 } catch (error) {
                     console.log('error')

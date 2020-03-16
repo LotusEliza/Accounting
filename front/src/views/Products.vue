@@ -1,16 +1,7 @@
 <template>
-    <section class="p-3">
+    <section class="plr-20">
         <confirm ref="conf" @clicked="removeProduct"></confirm>
-<!--        <p v-for="col in arr">-->
-<!--            {{col | uppercase}}-->
-<!--        </p>-->
-        <p class="title is-hidden-tablet">{{$t("titles.products")}}</p>
-<!--        <b-button @click="filterItems()"-->
-<!--                  type="is-light"-->
-<!--                  class="is-small"-->
-<!--        >-->
-<!--            {{$t("buttons.remove")}}-->
-<!--        </b-button>-->
+        <p class="title">{{$t("titles.products")}}</p>
         <div class="buttons pt-2 is-hidden-tablet">
             <b-button @click="confirmRemove()"
                       type="is-light"
@@ -39,20 +30,37 @@
             </b-button>
 
         </div>
-        <section class="bg-img">
-            <b-table
-                    :data="isEmpty ? [] : items"
-                    :columns="columns"
-                    :checked-rows.sync="checkedRows"
-                    checkable
-                    :checkbox-position="checkboxPosition"
-                    :striped="isStriped"
-                    :narrowed="isNarrowed"
-                    :hoverable="isHoverable"
-                    :loading="isLoading"
-                    :mobile-cards="hasMobileCards"
-            >
-            </b-table>
+        <section class="bg-img ">
+            <template v-if="items" class="plr-20">
+                <b-table
+                        :data="isEmpty ? [] : items"
+                        :columns="columns"
+                        :checked-rows.sync="checkedRows"
+                        checkable
+                        :checkbox-position="checkboxPosition"
+                        :striped="isStriped"
+                        :narrowed="isNarrowed"
+                        :hoverable="isHoverable"
+                        :loading="isLoading"
+                        :mobile-cards="hasMobileCards"
+                >
+                </b-table>
+            </template>
+
+            <template v-else>
+                <td slot="empty" colspan="2">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                    icon="emoticon-sad"
+                                    size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>Nothing here.</p>
+                    </div>
+                </td>
+            </template>
+
             <div class="buttons pt-2">
                 <b-button @click="confirmRemove()"
                           type="is-light"
@@ -61,6 +69,7 @@
                 >
                     {{$t("buttons.remove")}}
                 </b-button>
+
                 <b-button tag="router-link"
                           :to="{ path: `/products/update` }"
                           type="is-link is-primary"
@@ -70,17 +79,6 @@
                           :disabled="!visible"
                 >
                     {{$t("buttons.update")}}
-                </b-button>
-
-                <b-button tag="router-link"
-                          :to="{ path: `/products/decommissioned` }"
-                          type="is-link is-primary"
-                          class="is-small"
-                          v-on:click.native="decommissioned"
-                          :event="visible ? 'click' : ''"
-                          :disabled="!visible"
-                >
-                    {{$t("buttons.writeoff")}}
                 </b-button>
 
                 <b-button tag="router-link"
@@ -100,13 +98,11 @@
     import { mapGetters } from 'vuex';
     import Confirm from "../components/Confirm";
     import {ToastProgrammatic as Toast} from "buefy";
-    // import Modal from "../components/ModalMultipleRemove";
 
     export default {
         name: 'products',
         components: {
             'confirm': Confirm,
-            // 'modal': Modal,
         },
         data() {
             return {
@@ -142,40 +138,13 @@
                         field: 'ProductName',
                         label: this.$t("products.table.productName"),
                         centered: true,
-                        searchable: true,
-                    },
-                    {
-                        field: 'CompanyName',
-                        label: this.$t("products.table.companyName"),
-                        centered: true,
-                        searchable: true,
+                        searchaObjble: true,
                     },
                     {
                         field: 'CategoryName',
                         label: this.$t("products.table.categoryName"),
                         centered: true,
                         searchable: true,
-                    },
-                    {
-                        field: 'BuyPrice',
-                        label: this.$t("products.table.buyPrice"),
-                        centered: true
-                    },
-                    {
-                        field: 'SellPrice',
-                        label: this.$t("products.table.sellPrice"),
-                        centered: true
-                    },
-                    {
-                        field: 'Amount',
-                        label: this.$t("products.table.amount"),
-                        centered: true,
-                        searchable: true,
-                    },
-                    {
-                        field: 'DateCreate',
-                        label: this.$t("products.table.dateCreate"),
-                        centered: true,
                     },
                 ]
             }
@@ -240,30 +209,7 @@
                     this.$store.dispatch('products/setUpdateProducts', this.checkedRows);
                 }
             },
-            decommissioned(){
-                console.log('click');
-                if(this.checkedRows.length > 0){
-                    // console.log('update');
-                    // let arr = [];
-                    // let item;
-                    // for (let i = 0; i < this.checkedRows.length; i++) {
-                    //     item = {ID:this.checkedRows[i].ID, Amount: null, Comment: '' };
-                    //     arr =  arr.concat(item);
-                    // }
-                    // // console.log(arr)
-                    this.$store.dispatch('products/setDecommissioned', this.checkedRows);
-                }
-            },
-            // toUpperCase(){
-            //     console.log('hello')
-            // }
         },
-        filters: {
-            // Filter definitions
-            uppercase: function(v) {
-                return v.toUpperCase();
-            }
-        }
     }
 </script>
 
@@ -274,9 +220,6 @@
     table td:nth-child(1) {
         background-color: $violetpale;
     }
-    /*.table thead th {*/
-    /*    background-color: $pink;*/
-    /*}*/
 
     $table-row-hover-background-color: $hover;
     $narbar-hover-background-color: $hover;
@@ -317,10 +260,6 @@
     .navbar-menu{
         background-color: $darkgrey !important;
     }
-
-    /*.router-link-exact-active{*/
-    /*    background-color: $violetpale !important;*/
-    /*}*/
 
     @import "../../node_modules/bulma";
     @import "../../node_modules/buefy/src/scss/buefy.scss";

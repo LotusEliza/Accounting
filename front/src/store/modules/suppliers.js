@@ -6,12 +6,10 @@ export default {
     state: {
         suppliers: [],
         suppliersUpdate: [],
-        // companiesNames: [],
     },
     getters: {
         suppliers: state => state.suppliers,
         suppliersUpdate: state => state.suppliersUpdate,
-        // companiesNames: state => state.companiesNames,
     },
     mutations: {
         SET_SUPPLIERS(state, suppliers){
@@ -69,7 +67,6 @@ export default {
     actions: {
         async getSuppliers({commit}){
             let response =  await window.axios.get('/suppliers');
-            // commit('SET_COMPANIES_NAMES', response.data.Items.map(n => n.CompanyName));
             commit('SET_SUPPLIERS', response.data.Items);
         },
         async removeSupplier({commit}, id){
@@ -86,7 +83,6 @@ export default {
         },
         async updateSupplier({state}){
             let count = null;
-            // let norm = state.norms.find(n => n.Date == date);
             for (let i = 0; i < state.suppliersUpdate.length; i++) {
                 let response = await window.axios.post('/suppliers/update', {
                     ID: state.suppliersUpdate[i].ID,
@@ -127,6 +123,5 @@ export default {
                     });
                 }
         }
-
     }
 }

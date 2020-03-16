@@ -8,11 +8,24 @@ import SupplierAdd from './views/SupplierAdd'
 import Categories from './views/Categories'
 import CategoriesUpdate from './views/CategoriesUpdate'
 import CategoryAdd from './views/CategoryAdd'
-import test from './views/test'
+import test from './components/Chart'
 import CashBox from "./views/CashBox";
-// categoryAdd
+import Supply from "./views/Supply";
+import SupplyAdd from "./views/SupplyAdd";
+import SupplyUpdate from "./views/SupplyUpdate";
+import Report from "./views/Report";
+import DayReport from "./views/DayReport";
+import Orders from "./views/Orders";
+// import UtilityBills from "./views/UtilityBills";
+import NewUtilityBills from "./views/NewUtilityBill";
+import Welcome from "./views/Welcome";
 
 export default [
+    {
+        path: '/',
+        name: 'welcome',
+        component: Welcome,
+    },
     {
         path: '/products',
         name: 'products',
@@ -29,7 +42,7 @@ export default [
         component: ProductAdd,
     },
     {
-        path: '/products/decommissioned',
+        path: '/supply/decommissioned',
         name: 'decommissioned',
         component: Decommissioned
     },
@@ -74,5 +87,41 @@ export default [
         component: CashBox
     },
 
+    {
+        path: '/supply',
+        name: 'supply',
+        component: Supply
+    },
 
+    {
+        path: '/supply/add',
+        name: 'supplyAdd',
+        component: SupplyAdd
+    },
+
+    {
+        path: '/supply/update',
+        name: 'supplyUpdate',
+        component: SupplyUpdate
+    },
+    {
+        path: '/report',
+        name: 'report',
+        component: Report
+    },
+    {
+        path: '/day_report',
+        name: 'dayReport',
+        component: DayReport
+    },
+    {
+        path: '/utility_bills',
+        name: 'newUtilityBills',
+        component: NewUtilityBills
+    },
+    {
+        path: '/orders',
+        name: 'orders',
+        component: Orders
+    },
 ]

@@ -1,7 +1,7 @@
 <template>
     <section class="p-7">
         <confirm ref="conf" @clicked="removeCategory"></confirm>
-        <p class="title is-hidden-tablet">{{$t("titles.categories")}}</p>
+        <p class="title">{{$t("titles.categories")}}</p>
         <div class="buttons pt-2 is-hidden-tablet">
             <b-button @click="confirmRemove()"
                       type="is-light"
@@ -31,19 +31,37 @@
         </div>
 
         <section class="bg-img">
-            <b-table
-                    :data="isEmpty ? [] : categories"
-                    :columns="columns"
-                    :checked-rows.sync="checkedRows"
-                    checkable
-                    :checkbox-position="checkboxPosition"
-                    :striped="isStriped"
-                    :narrowed="isNarrowed"
-                    :hoverable="isHoverable"
-                    :loading="isLoading"
-                    :mobile-cards="hasMobileCards"
-            >
-            </b-table>
+
+            <template v-if="categories">
+                <b-table
+                        :data="isEmpty ? [] : categories"
+                        :columns="columns"
+                        :checked-rows.sync="checkedRows"
+                        checkable
+                        :checkbox-position="checkboxPosition"
+                        :striped="isStriped"
+                        :narrowed="isNarrowed"
+                        :hoverable="isHoverable"
+                        :loading="isLoading"
+                        :mobile-cards="hasMobileCards"
+                >
+                </b-table>
+            </template>
+
+            <template v-else>
+                <td slot="empty" colspan="2">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                    icon="emoticon-sad"
+                                    size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>Nothing here.</p>
+                    </div>
+                </td>
+            </template>
+
             <div class="buttons pt-2">
                 <b-button @click="confirmRemove()"
                           type="is-light"
@@ -188,57 +206,3 @@
         }
     }
 </script>
-
-<style lang="scss">
-    @import "../styles/_variables.scss";
-    @import "../../node_modules/bulma/sass/utilities/_all.sass";
-
-    table td:nth-child(1) {
-        background-color: $violetpale;
-    }
-    /*.table thead th {*/
-    /*    background-color: $pink;*/
-    /*}*/
-
-    $table-row-hover-background-color: $hover;
-    $narbar-hover-background-color: $hover;
-
-    .b-table .table {
-        background-color: $table;
-    };
-    /*// Import Bulma and Buefy styles*/
-    $colors: (
-    "light": ($pinkstrong, white),
-    "primary": ($violet, white),
-    "info": ($peachy, $white),
-    "success": ($green, $success-invert),
-    "warning": ($darkyellow, $white),
-    "danger": ($pinkstrong, white),
-    );
-    .title{
-        color: $violet !important;
-    }
-    .navbar{
-        background-color: $darkgrey !important;
-    }
-    .navbar-item, .navbar-link{
-        color: $green !important;
-        font-size: 20px;
-    }
-    $navbar-item-hover-background-color:  $violetpale;
-
-    .navbar-burger{
-        color: $green !important;
-    }
-    $pagination-margin: 0.25rem !default;
-
-    $pagination-color: $green !default;
-    $pagination-border-color: $green !default;
-    $pagination-active-color:  $peachy !default;
-    $pagination-current-background-color: $violet !default;
-    .navbar-menu{
-        background-color: $darkgrey !important;
-    }
-    @import "../../node_modules/bulma";
-    @import "../../node_modules/buefy/src/scss/buefy.scss";
-</style>

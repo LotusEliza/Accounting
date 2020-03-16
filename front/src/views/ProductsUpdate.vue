@@ -1,6 +1,6 @@
 <template>
     <div class="p-3">
-            <div class="tile is-ancestor" v-for="(item, index) in products" :key="index">
+            <div class="tile is-ancestor plr-20" v-for="(item, index) in products" :key="index">
                 <div class="tile is-2 is-vertical is-parent">
                 </div>
                 <div class="tile is-vertical is-parent">
@@ -48,70 +48,20 @@
                                         </b-select>
                                     </b-field>
                                 </div>
-
-                                <div class="column is-narrow">
-                                    <b-field :label="labels.companyName">
-                                        <b-select placeholder="Select a category"
-                                                  :value="item.SupplierID"
-                                                  @input="updateCompanyID($event, item.ID)"
-                                                  rounded
-                                                  size="is-small"
-                                        >
-                                            <option v-for="(option, key) in suppliers"
-                                                    :key="key"
-                                                    :value="option.ID"
-                                            >
-                                                {{option.CompanyName}}
-                                            </option>
-                                        </b-select>
-                                    </b-field>
-                                </div>
-
-                                <div class="column is-narrow">
-                                    <b-field :label="labels.buyPrice">
-                                        <b-numberinput :value="item.BuyPrice"
-                                                       @input="updateBuyPrice($event, item.ID)"
-                                                       placeholder="Enter sockets"
-                                                       rounded
-                                                       size="is-small"
-                                                       step="0.1"
-                                        ></b-numberinput>
-                                    </b-field>
-                                </div>
-
-
-                                <div class="column is-narrow">
-                                    <b-field :label="labels.sellPrice">
-                                        <b-numberinput :value="item.SellPrice"
-                                                       @input="updateSellPrice($event, item.ID)"
-                                                       placeholder="Enter sockets"
-                                                       rounded
-                                                       size="is-small"
-                                                       step="0.1"
-                                        ></b-numberinput>
-                                    </b-field>
-                                </div>
-
-                                <div class="column is-narrow">
-                                    <b-field :label="labels.amount">
-                                        <b-numberinput :value="item.Amount"
-                                                       @input="updateAmount($event, item.ID)"
-                                                       placeholder="Enter sockets"
-                                                       rounded
-                                                       size="is-small"
-                                                       step="1"
-                                        ></b-numberinput>
-                                    </b-field>
-                                </div>
-
                             </div>
                         </section>
                         <section>
                             <div class="buttons pt-2" v-if="index === products.length - 1">
-                                <b-button  @click="updateProduct()" type="is-success">{{$t("buttons.submit")}}</b-button>
+                                <b-button  @click="updateProduct()"
+                                           type="is-link is-primary"
+                                           class="is-small"
+                                >
+                                    {{$t("buttons.submit")}}
+                                </b-button>
                                 <b-button tag="router-link"
                                           to="/products"
                                           type="is-link is-light"
+                                          class="is-small"
                                 >
                                     {{$t("buttons.back")}}
                                 </b-button>
@@ -170,8 +120,14 @@
             }
         },
         methods: {
-            updateProduct(){
-                this.$store.dispatch('products/updateProducts');
+            async updateProduct(){
+                try {
+                    await   this.$store.dispatch('products/updateProducts');
+                } catch (error) {
+                    console.log('error')
+                } finally {
+                    await this.$router.push('/products');
+                }
             },
             updateName(event, id){
                 let item = {'ID': id, 'ProductName': event};

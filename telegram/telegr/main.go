@@ -25,23 +25,23 @@ const postGetLastOrderURL = "http://localhost:3001/order/last"
 
 var mainMenu = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
-		tgbotapi.NewKeyboardButton("Заказать"),
+		tgbotapi.NewKeyboardButton("Order"),
 	),
 )
 var mainMenuSecondOrder = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
-		tgbotapi.NewKeyboardButton("Заказать"),
-		tgbotapi.NewKeyboardButton("Отменить последний заказ"),
+		tgbotapi.NewKeyboardButton("Order"),
+		tgbotapi.NewKeyboardButton("Remove last order"),
 	),
 )
 var productMenu = tgbotapi.NewReplyKeyboard(
 	tgbotapi.NewKeyboardButtonRow(
-		tgbotapi.NewKeyboardButton("🥖 батон"),
-		tgbotapi.NewKeyboardButton("🍞 кирпич"),
+		tgbotapi.NewKeyboardButton("🥖 bread"),
+		tgbotapi.NewKeyboardButton("🧀 cheese"),
 	),
 	tgbotapi.NewKeyboardButtonRow(
-		tgbotapi.NewKeyboardButton("🥐 булка"),
-		tgbotapi.NewKeyboardButton("🍞 ржаной"),
+		tgbotapi.NewKeyboardButton("🥛 milk"),
+		tgbotapi.NewKeyboardButton("🍯 honey"),
 	),
 )
 var amountMenu = tgbotapi.NewReplyKeyboard(
@@ -148,7 +148,7 @@ func main() {
 			if update.Message.IsCommand() {
 				cmdText := update.Message.Command()
 				if cmdText == "start" {
-					msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Здравствуйте! Для заказа нажмите кнопку заказать ⬇")
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hi there👋! Please push the button for placing an order ⬇")
 					msg.ReplyMarkup = mainMenu
 					bot.Send(msg)
 				}
@@ -164,7 +164,7 @@ func main() {
 						orderMap[update.Message.From.ID].State = 0
 						msgConfig := tgbotapi.NewMessage(
 							update.Message.Chat.ID,
-							"Выберите пожалуйста продукт который Вы желаете заказать в магазине:")
+							"Choose a product that you want to order 🛒:")
 						msgConfig.ReplyMarkup = productMenu
 						bot.Send(msgConfig)
 					} else if update.Message.Text == mainMenuSecondOrder.Keyboard[0][1].Text {
@@ -212,14 +212,14 @@ func main() {
 
 							msgConfig := tgbotapi.NewMessage(
 								update.Message.Chat.ID,
-								"Ваш заказ \""+itemOrder.Product+"\" - "+strconv.Itoa(itemOrder.Amount)+"шт. был успешно отменен!",
+								"Your order 🛍\""+itemOrder.Product+"\" - "+strconv.Itoa(itemOrder.Amount)+" has been successfully removed!👌",
 							)
 							msgConfig.ReplyMarkup = mainMenuSecondOrder
 							bot.Send(msgConfig)
 						} else {
 							msgConfig := tgbotapi.NewMessage(
 								update.Message.Chat.ID,
-								"Больше нет заказов!",
+								"Nothing to remove!",
 							)
 							msgConfig.ReplyMarkup = mainMenu
 							bot.Send(msgConfig)
@@ -232,7 +232,7 @@ func main() {
 								ord.ProductID = productId(ord.Product)
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									"Введите колличество:",
+									"Select needed amount:",
 								)
 								msgConfig.ReplyMarkup = amountMenu
 								bot.Send(msgConfig)
@@ -248,7 +248,7 @@ func main() {
 								}
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									"Спасибо за Ваш заказ, "+ord.Name+"! Хорошего Вам дня!")
+									"Thank you for your order, "+ord.Name+" 🙏! Have a good day ☀!")
 								msgConfig.ReplyMarkup = mainMenuSecondOrder
 								bot.Send(msgConfig)
 
@@ -301,7 +301,7 @@ func main() {
 
 						msgConfig := tgbotapi.NewMessage(
 							update.Message.Chat.ID,
-							"Как Я могу к Вам обращаться?")
+							"What is your name?")
 						msgConfig.ReplyMarkup = tgbotapi.NewRemoveKeyboard(true)
 						bot.Send(msgConfig)
 					} else {
@@ -311,7 +311,7 @@ func main() {
 								ord.Name = update.Message.Text
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									ord.Name+", введите пожалуйста свой номер телефона:")
+									ord.Name+", please enter your phone number ☎:")
 								bot.Send(msgConfig)
 								ord.State = 1
 							} else if ord.State == 1 {
@@ -319,7 +319,7 @@ func main() {
 								ord.State = 2
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									"Выберите пожалуйста продукт который Вы желаете заказать в магазине:")
+									"Choose a product that you want to order 🛒:")
 								msgConfig.ReplyMarkup = productMenu
 								bot.Send(msgConfig)
 							} else if ord.State == 2 {
@@ -327,7 +327,7 @@ func main() {
 								ord.ProductID = productId(ord.Product)
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									"Введите колличество:",
+									"Enter the amount:",
 								)
 								msgConfig.ReplyMarkup = amountMenu
 								bot.Send(msgConfig)
@@ -339,7 +339,7 @@ func main() {
 								}
 								msgConfig := tgbotapi.NewMessage(
 									update.Message.Chat.ID,
-									"Спасибо за Ваш заказ, "+ord.Name+"! Хорошего Вам дня!")
+									"Thank you for your order, "+ord.Name+" 🙏! Have a good day ☀!")
 								msgConfig.ReplyMarkup = mainMenu
 								bot.Send(msgConfig)
 
@@ -424,13 +424,13 @@ func main() {
 
 func productId(product string) int {
 	if product == productMenu.Keyboard[0][0].Text {
-		return 1
+		return 146
 	} else if product == productMenu.Keyboard[0][1].Text {
-		return 2
+		return 149
 	} else if product == productMenu.Keyboard[1][0].Text {
-		return 3
+		return 147
 	} else if product == productMenu.Keyboard[1][1].Text {
-		return 4
+		return 148
 	} else {
 		return 0
 	}

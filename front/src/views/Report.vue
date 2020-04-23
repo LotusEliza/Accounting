@@ -73,7 +73,7 @@
             <div class="tile is-child box" style="text-align: center">
 <!--_______________________________ "DEBIT/CREDIT" _______________________________________-->
                 <div v-if="visible === 'debit/credit'">
-                    <p class="title">Кредит/Дебит</p>
+                    <p class="title">{{$t("report.credit/debit")}}</p>
                     <b-table
                             :data="isEmpty ? [] : monthCreditDebit"
                             :columns="columns"
@@ -88,7 +88,7 @@
                 </div>
 <!--_______________________________ "UTILITY BILLS" _______________________________________-->
                 <div v-if="visible === 'utility bills'">
-                    <p class="title">Коммунальные платежи</p>
+                    <p class="title"> {{$t("report.utility_bills")}} </p>
                     <b-table
                             :data="isEmpty ? [] : monthBillTable"
                             :columns="columnsBill"
@@ -102,7 +102,7 @@
                 </div>
 <!--_______________________________ "DECOMMISSIONED" _______________________________________-->
                 <div v-if="visible === 'decommissioned'">
-                    <p class="title">Списанный товар</p>
+                    <p class="title"> {{$t("report.decommissioned")}} </p>
                     <b-table
                             :data="isEmpty ? [] : decommissioned_month"
                             :columns="columns_decom"
@@ -117,13 +117,13 @@
                 <hr>
 <!--_______________________________ CHART "MONTH" _______________________________________-->
                 <div  v-if="visible === 'chart month'">
-                    <p class="title">График за месяц</p>
+                    <p class="title"> {{$t("report.chart_month")}} </p>
                     <chart :labels="labels" :datasets="datasets" :key="componentKey"/>
                 </div>
 
 <!--_______________________________ CHART "YEAR" _______________________________________-->
                 <div v-if="visible === 'chart year'">
-                    <p class="title">График за год</p>
+                    <p class="title"> {{$t("report.chart_year")}} </p>
                     <chart :labels="labelsYear" :datasets="datasetsYear" :key="componentKey"/>
                 </div>
 

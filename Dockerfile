@@ -1,4 +1,4 @@
-# build stage
+ v  # build stage
 FROM node:lts-alpine as build-stage
 WORKDIR /front
 COPY front/package*.json ./

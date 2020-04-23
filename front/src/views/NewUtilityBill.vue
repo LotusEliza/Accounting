@@ -1,11 +1,11 @@
 <template>
-    <div class="p-3">
-        <div class="tile is-ancestor">
+    <div class="p-3 ">
+        <div class="tile is-ancestor pb-20">
             <div class="tile is-3 is-vertical is-parent">
             </div>
             <div class="tile is-6 is-vertical is-parent">
 
-                <p class="title">Коммунальные платежи</p>
+                <p class="title"> {{$t("report.utility_bills")}} </p>
 <!--_______________________________ TABLE _______________________________________-->
                 <b-table
                         :data="isEmpty ? [] : bills"
@@ -29,7 +29,7 @@
                             {{ props.row.Amount }}
                         </b-table-column>
 
-                        <b-table-column field="Date" label="Название"  style="text-align: center">
+                        <b-table-column field="Date" label="Utility"  style="text-align: center">
                             {{ props.row.BillName }}
                         </b-table-column>
 
@@ -65,14 +65,14 @@
                           expanded
                           v-show="!show"
                 >
-                    Добавить платеж
+                    Add payment
                 </b-button>
                 <b-button @click="cancelAddNorm"
                           type="is-primary"
                           expanded
                           v-show="show"
                 >
-                    Отмена
+                    Cancel
                 </b-button>
 <!--_______________________________ FORM ADD UTILITY BILL _______________________________________-->
                 <transition name="fade">
@@ -84,13 +84,13 @@
                                         <div class="columns is-mobile is-multiline">
 
                                             <div class="column">
-                                                <b-field label="Дата">
-                                                    <Datepicker v-model="newBill.DateCreate" :language="ru" :monday-first="true"></Datepicker>
+                                                <b-field label="Date">
+                                                    <Datepicker v-model="newBill.DateCreate" :language="en" :monday-first="true"></Datepicker>
                                                 </b-field>
                                             </div>
 
                                             <div class="column">
-                                                <b-field label="Сумма">
+                                                <b-field label="Sum">
                                                     <BInputWithValidation rules="required"
                                                                           type="text"
                                                                           v-model="newBill.Amount"
@@ -99,13 +99,12 @@
                                             </div>
 
                                             <div class="column">
-                                                <b-field label="Назначение">
+                                                <b-field label="Utility">
                                                     <b-autocomplete
                                                             rounded
                                                             size="is-small"
                                                             v-model="newBill.BillName"
                                                             :data="filteredDataArray"
-                                                            placeholder="вода"
                                                             @select="option => selected = option"
                                                     >
                                                         <template slot="empty">No results found</template>

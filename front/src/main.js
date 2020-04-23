@@ -12,7 +12,7 @@ import moment from 'moment'
 import VueTelInput from 'vue-tel-input'
 import {i18n} from './plugins/i18n'
 import FlagIcon from 'vue-flag-icon'
-import validationMessagesRu from 'vee-validate/dist/locale/ru';
+// import validationMessagesRu from 'vee-validate/dist/locale/ru';
 import validationMessagesEn from 'vee-validate/dist/locale/en';
 
 
@@ -40,7 +40,7 @@ Vue.use(VeeValidate, {
   i18nRootKey: 'validations', // customize the root path for validation messages.
   i18n,
   dictionary: {
-    ru: validationMessagesRu,
+    // ru: validationMessagesRu,
     en: validationMessagesEn,
   }
 });

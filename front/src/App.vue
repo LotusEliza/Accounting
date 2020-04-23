@@ -32,7 +32,7 @@ export default {
   },
     created() {
       ///////////////////////////////////////////////////////////////////
-        // this.interval = setInterval(() => this.getOrders(), 50000);
+        this.interval = setInterval(() => this.getOrders(), 50000);
     },
     computed: {
         count () {
@@ -77,10 +77,10 @@ export default {
           console.log('yes')
           this.forceRerender()
       },
-      // getOrders(){
-      //     console.log("function run!");
-      //     this.$store.dispatch('orders/getOrders');
-      // }
+      getOrders(){
+          console.log("function run!");
+          this.$store.dispatch('orders/getOrders');
+      }
   },
 
 
@@ -117,14 +117,14 @@ export default {
 
   .plr-15{
       padding-top: 2% !important;
-      padding-left: 17% !important;
-      padding-right: 17% !important;
+      padding-left: 15% !important;
+      padding-right: 15% !important;
   }
 
   .plr-10{
       padding-top: 2% !important;
-      padding-left: 7% !important;
-      padding-right: 7% !important;
+      padding-left: 4% !important;
+      padding-right: 4% !important;
   }
 
 
@@ -226,6 +226,9 @@ export default {
       padding-top: 2em;
       padding-left: 2em;
       padding-right: 2em;
+  }
+  .pb-20{
+      padding-bottom: 20%;
   }
     /*.is-active{*/
     /*    background-color: red;*/

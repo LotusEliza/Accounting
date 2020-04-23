@@ -22,7 +22,9 @@
             "report": "Report",
             "month/year": "Month/Year",
             "day": "Day",
-            "utilityBills": "Utility Bills"
+            "utilityBills": "Utility Bills",
+            "more": "More",
+            "orders": "Orders"
         }
     },
     "categories":{
@@ -67,11 +69,11 @@
             "noWeight" : "Please specify the weight"
         },
         "labels": {
-            "price" : "Price for item",
+            "price" : "Item price",
             "sum": "Total: ",
-            "sum2": "Cумма:",
+            "sum2": "Sum:",
             "total" : "Total",
-            "price2" : "Цена"
+            "price2" : "Price"
         }
     },
     "warehouse":{
@@ -121,16 +123,22 @@
         }
     },
     "report": {
+        "credit/debit": "Credit/Debit",
         "debit": "Debit",
         "debitTotal": "Debit:",
         "credit": "Credit",
         "creditTotal": "Credit:",
         "profit": "Profit",
+        "chart_month": "Monthly chart",
+        "chart_year": "Annual chart",
+        "utility_bills": "Utility bills",
+        "decommissioned": "Decommissioned",
+        "day_report": "Daily report",
         "buttons":{
             "debit/credit": "debit/credit",
-            "decommissioned": "decommissioned",
+            "decommissioned": "decom",
             "chartMonth": "chart month",
-            "utilityBills": "Utility Bills",
+            "utilityBills": "utility bills",
             "chartYear": "chart year"
         },
         "table":{
@@ -146,6 +154,6 @@
         "add": "Add",
         "cancel": "Cancel",
         "writeoff": "Write-Off",
-        "buy": "Купить"
+        "buy": "Buy"
     }
 }

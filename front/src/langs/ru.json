@@ -11,7 +11,9 @@
             "report": "Отчет",
             "month/year": "Месяц/Год",
             "day": "День",
-            "utilityBills": "Коммунальные услуги"
+            "utilityBills": "Коммунальные услуги",
+            "more": "Еще",
+            "orders": "Заказы"
         }
     },
     "titles": {
@@ -25,11 +27,17 @@
         "comment": "Комментарий"
     },
     "report": {
+        "credit/debit": "Кредит/Дебит",
         "debit": "Дебит",
         "debitTotal": "Дебит:",
         "credit": "Кредит",
         "creditTotal": "Кредит:",
         "profit": "Прибыль",
+        "chart_month": "График за месяц",
+        "chart_year": "График за год",
+        "utility_bills": "Коммунальные платежи",
+        "decommissioned": "Списанное",
+        "day_report": "Отчет за день",
         "buttons":{
             "debit/credit": "дебит/кредит",
             "decommissioned": "списанное",

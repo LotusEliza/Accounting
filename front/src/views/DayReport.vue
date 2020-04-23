@@ -4,9 +4,9 @@
             <div class="column is-2">
             </div>
             <div class="column box mt-3">
-                <p class="title">Отчет за день</p>
+                <p class="title">{{$t("report.day_report")}} </p>
                 <div class="pl-2">
-                    <Datepicker v-model="date" name="uniquename" format="dd MMM yyyy" :language="ru" :monday-first="true"></Datepicker>
+                    <Datepicker v-model="date" name="uniquename" format="dd MMM yyyy" :language="en" :monday-first="true"></Datepicker>
                 </div>
                 <div v-if="date !== ''">
                     <div class="buttons pt-2">

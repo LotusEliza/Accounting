@@ -4,18 +4,18 @@ export const firstInputOptions = ['weapon', 'armor', 'metal', 'gas', 'junk', 'de
 export const locations = ['Left Side', 'Right Side'];
 
 export const data = [
-    'Киев',
-    'Харьков',
-    'Одесса',
-    'Днепр',
-    'Донецк',
-    'Львов',
-    'Николаев',
-    'Севастополь',
-    'Херсон',
-    'Сумми',
-    'Ровно',
-    'Ивано-Франковск'
+    'Kyiv',
+    'Kharkiv',
+    'Odessa',
+    'Dnipro',
+    'Donetsk',
+    'Zaporizhia',
+    'Lviv',
+    'Mykolaiv',
+    'Mariupol',
+    'Luhansk',
+    'Sevastopol',
+    'Vinnytsia'
 ];
 
 export const dataCode = [

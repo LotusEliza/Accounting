@@ -160,7 +160,7 @@
                 narrowed: true,
                 unicId: 0,
                 labels: {
-                    product: this.$t("warehouse.table.productName")+'/'+ this.$t("products.table.vendorCode"),
+                    product: this.$t("warehouse.table.productName"),
                     amount: this.$t("products.table.amount"),
                     price: this.$t("cashBox.labels.price"),
                     total: this.$t("cashBox.labels.total"),

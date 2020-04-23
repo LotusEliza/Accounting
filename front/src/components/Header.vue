@@ -26,7 +26,7 @@
 
             </b-navbar-dropdown>
 
-            <b-navbar-dropdown label="Ещё">
+            <b-navbar-dropdown :label="more">
 
                 <b-navbar-item tag="router-link" to="/products">
                     {{$t("header.nav.products")}}
@@ -41,7 +41,7 @@
                 </b-navbar-item>
 
                 <b-navbar-item tag="router-link" to="/orders">
-                    Заказы
+                    {{$t("header.nav.orders")}}
                 </b-navbar-item>
 
             </b-navbar-dropdown>
@@ -74,6 +74,7 @@
                 id: null,
                 add: this.$t("header.nav.add"),
                 report: this.$t("header.nav.report"),
+                more: this.$t("header.nav.more"),
             }
         },
         methods:{

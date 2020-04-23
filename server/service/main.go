@@ -123,8 +123,6 @@ func main() {
 	router.Post("/customer/get/chat_id", handlers.CustomerGetChatID)
 	router.Get("/customer/get/last_id", handlers.CustomersGetLastId)
 
-	//ReportMonthGet
-
 	webserver.Start(router, config.MustString("port"))
 	mainloop.Loop(stop, grace, config.DefaultConfig())
 
